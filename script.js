@@ -11,6 +11,9 @@ function addTask(){
         let span=document.createElement("span");
         span.innerHTML="\u00d7";
         li.appendChild(span);
+        let modify=document.createElement("modify")
+        modify.innerHTML="M"
+        li.appendChild(modify)
     }
     inputbox.value="";
 
@@ -23,6 +26,32 @@ listContainer.addEventListener("click",function(e){
     else if(e.target.tagName === 'SPAN'){
         e.target.parentElement.remove();
         saveData();
+    }
+    else if(e.target.tagName === 'MODIFY'){
+        let li = e.target.parentElement;
+        let inputbox = document.createElement('input');
+        inputbox.type = 'text';
+        inputbox.value = li.innerText;
+        var modifiedText = inputbox.value.slice(0, -2);
+        inputbox.value=modifiedText
+        
+        inputbox.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                li.innerText = inputbox.value;
+                let span=document.createElement("span");
+                span.innerHTML="\u00d7";
+                li.appendChild(span);
+                let modify=document.createElement("modify")
+                modify.innerHTML="M"
+                li.appendChild(modify)
+                saveData();
+            }
+        });
+        li.innerHTML = '';   
+        li.appendChild(inputbox);
+        li.appendChild(span);
+        
+        
     }
 },false);
 
